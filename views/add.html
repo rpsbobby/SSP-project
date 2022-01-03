@@ -15,21 +15,31 @@
    <body>
       <div class="bg-light py-5">
          <nav class="nav nav-pills nav-justified container">
-            <a href="./index.html" class="nav-link active h3">Main</a>
-            <a href="#" class="nav-link h3">Add new</a>
+            <a href="./index.html" class="nav-link h3">Main</a>
+            <a href="#" class="nav-link h3 active">Add new</a>
          </nav>
       </div>
 
       <div class="container py-5">
          <h3 class="display text-center border-bottom py-3">Add your pet</h3>
-         <form action="POST">
+         <form action="/add" method="post">
             <div class="mb-3">
                <label class="form-label">Animal's name</label>
-               <input class="form-control" type="text" placeholder="name" />
+               <input
+                  class="form-control"
+                  type="text"
+                  placeholder="name"
+                  name="name"
+               />
             </div>
             <div class="mb-3">
                <label class="form-label">Photo's URL</label>
-               <input class="form-control" type="text" placeholder="url" />
+               <input
+                  class="form-control"
+                  type="text"
+                  placeholder="url"
+                  name="url"
+               />
             </div>
             <div class="mb-3">
                <button class="btn btn-primary" id="clickMe" type="submit">
@@ -38,5 +48,11 @@
             </div>
          </form>
       </div>
+      <footer class="bg-primary text-white pt-5 pb-4">
+         <div class="container text-center">
+            <h3>Robert Szlufik</h3>
+            <h4>Student #2020358</h4>
+         </div>
+      </footer>
    </body>
 </html>
