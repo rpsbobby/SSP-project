@@ -1,19 +1,24 @@
 const Animal = require('../model/animal');
 const fs = require('fs');
 const path = require('path');
+const { render } = require('express/lib/response');
 // Add current path to filename
 const filePath = path.resolve(__dirname, 'animals.json');
 
 // router methods
 
 exports.getMainPage = (req, res, next) => {
-   res.render('../views/index.html');
+   res.render('index');
+};
+
+exports.getAdd = (req, res, next) => {
+   res.render('add');
 };
 
 exports.postAdd = (req, res, next) => {
+   res.re;
    let data = req.body;
    let animals = [];
-   // console.log(loadData());
    saveData(new Animal(data.name, data.url), next);
    res.redirect('/');
 };
@@ -42,6 +47,7 @@ const loadData = () => {
 
 // save data
 const saveData = function (animal, next) {
+   // retrieving existing animal list
    const animals = loadData();
    //adding animal to existing array
    animals.push(animal);
