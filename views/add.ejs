@@ -10,6 +10,8 @@
          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
          crossorigin="anonymous"
       />
+      <script defer src="add.js"></script>
+
       <title>Zoobook | Add new</title>
    </head>
    <body class="d-flex flex-column min-vh-100">
@@ -22,7 +24,7 @@
 
       <div class="container py-5">
          <h3 class="display text-center border-bottom py-3">Add your pet</h3>
-         <form action="/add" method="post">
+         <form action="/add" method="post" id="form">
             <div class="mb-3">
                <label class="form-label">Animal's name</label>
                <input
@@ -30,6 +32,7 @@
                   type="text"
                   placeholder="name"
                   name="name"
+                  id="name"
                />
             </div>
             <div class="mb-3">
@@ -39,11 +42,22 @@
                   type="text"
                   placeholder="url"
                   name="url"
+                  id="url"
+               />
+            </div>
+            <div class="mb-3">
+               <label class="form-label">Description/Fun Fact (Optional)</label>
+               <input
+                  class="form-control"
+                  type="textarea"
+                  placeholder="..."
+                  name="fact"
+                  id="textField"
                />
             </div>
             <div class="mb-3 d-flex justify-content-around">
                <button class="btn btn-primary" type="submit">Add</button>
-               <button class="btn btn-primary" id="clickMe">Randomize</button>
+               <div class="btn btn-primary" id="randomise">Randomise</div>
             </div>
          </form>
       </div>

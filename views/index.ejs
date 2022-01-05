@@ -30,11 +30,12 @@
             <img
                src="<%=animal.imageURL%>"
                class="card-img-top"
-               style="max-width: 18rem; max-height: 18rem"
+               style="min-width: 18rem; max-width: 18rem; max-height: 18rem"
                alt="..."
             />
             <div class="card-body text-center">
                <h5 class="card-title"><%=animal.name%></h5>
+               <p class="card-text"><%=animal.fact%></p>
                <form action="/delete" method="post">
                   <input type="hidden" value="<%= animal.id %>" name="id" />
                   <button class="btn btn-primary" type="submit">Delete</button>

@@ -20,7 +20,7 @@ exports.postAdd = (req, res, next) => {
    res.re;
    let data = req.body;
    let animals = [];
-   saveData(new Animal(data.name, data.url), next);
+   saveData(new Animal(data.name, data.url, data.fact), next);
    res.redirect('/');
 };
 
@@ -40,7 +40,6 @@ exports.delete = (req, res, next) => {
 
 // fetch data from the file
 const loadData = () => {
-   let animals = [];
    try {
       let data = fs.readFileSync(filePath, 'utf8');
       // if file is not empty
@@ -50,7 +49,8 @@ const loadData = () => {
    } catch (err) {
       console.log(err);
    }
-   return animals;
+   // if nothing is returned at this point, we need to return an empty array
+   return [];
 };
 
 // save data
@@ -60,24 +60,26 @@ const saveData = function (animal, next) {
    //adding animal to existing array
    animals.push(animal);
    // saving animal array to the json file
-   try {
-      fs.writeFileSync(filePath, JSON.stringify(animals));
-   } catch (err) {
-      console.log(err);
-   }
+   saveFile(animals);
 };
 
+//remove from the file
 const remove = (id) => {
-   const data = loadData();
+   const data = loadData(); // load data from the file
+   // filter for all but matching id
    const animals = data.filter((entry) => {
       if (entry.id.toString() !== id.toString()) {
          return entry;
       }
    });
+   // save file
+   saveFile(animals);
+};
 
-   console.log(animals);
+// helper function
+const saveFile = (array) => {
    try {
-      fs.writeFileSync(filePath, JSON.stringify(animals));
+      fs.writeFileSync(filePath, JSON.stringify(array));
    } catch (err) {
       console.log(err);
    }
