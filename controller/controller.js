@@ -70,9 +70,12 @@ const saveData = function (animal, next) {
 const remove = (id) => {
    const data = loadData();
    const animals = data.filter((entry) => {
-      console.log('entry id' + entry.id);
-      if (entry.id !== id) return entry;
+      if (entry.id.toString() !== id.toString()) {
+         return entry;
+      }
    });
+
+   console.log(animals);
    try {
       fs.writeFileSync(filePath, JSON.stringify(animals));
    } catch (err) {
