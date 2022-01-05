@@ -13,14 +13,38 @@
       <title>Zoobook</title>
    </head>
    <body>
-      <div class="bg-light py-5">
+      <!-- navbar -->
+      <div class="bg-light py-4 border-bottom border-primary">
          <nav class="nav nav-pills nav-justified container">
             <a href="#" class="nav-link active h3">Main</a>
-            <a href="/add" class="nav-link h3">Add new</a>
+            <a href="/add" class="nav-link h3 border border-primary">Add new</a>
          </nav>
       </div>
-      <div class="container" id="box1"></div>
-      <footer class="bg-primary text-white pt-5 pb-4">
+      <!-- main section -->
+      <div class="container py-4 d-flex justify-content-around flex-wrap">
+         <!-- card here  -->
+         <% if(arr.length===0) { %>
+         <h1>No Animals added!</h1>
+         <% } else { %> <% arr.forEach((animal) => { %>
+         <div class="card m-4" style="width: 18rem">
+            <img
+               src="<%=animal.imageURL%>"
+               class="card-img-top"
+               style="max-width: 18rem; max-height: 18rem"
+               alt="..."
+            />
+            <div class="card-body text-center">
+               <h5 class="card-title"><%=animal.name%></h5>
+               <form action="/delete" method="post">
+                  <input type="hidden" value="<%= animal.id %>" name="id" />
+                  <button class="btn btn-primary" type="submit">Delete</button>
+               </form>
+            </div>
+         </div>
+         <% }) %> <% } %>
+      </div>
+      <!-- footer -->
+      <footer class="bg-primary text-white pt-4 pb-4">
          <div class="container text-center">
             <h3>Robert Szlufik</h3>
             <h4>Student #2020358</h4>

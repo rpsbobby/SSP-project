@@ -8,7 +8,8 @@ const filePath = path.resolve(__dirname, 'animals.json');
 // router methods
 
 exports.getMainPage = (req, res, next) => {
-   res.render('index');
+   let animals = loadData();
+   res.render('index', { arr: animals });
 };
 
 exports.getAdd = (req, res, next) => {
@@ -20,6 +21,13 @@ exports.postAdd = (req, res, next) => {
    let data = req.body;
    let animals = [];
    saveData(new Animal(data.name, data.url), next);
+   res.redirect('/');
+};
+
+exports.delete = (req, res, next) => {
+   let data = req.body;
+   console.log('DataID' + data.id);
+   remove(data.id);
    res.redirect('/');
 };
 
@@ -57,5 +65,17 @@ const saveData = function (animal, next) {
    } catch (err) {
       console.log(err);
    }
-   next();
+};
+
+const remove = (id) => {
+   const data = loadData();
+   const animals = data.filter((entry) => {
+      console.log('entry id' + entry.id);
+      if (entry.id !== id) return entry;
+   });
+   try {
+      fs.writeFileSync(filePath, JSON.stringify(animals));
+   } catch (err) {
+      console.log(err);
+   }
 };
