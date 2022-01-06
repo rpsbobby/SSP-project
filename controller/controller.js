@@ -6,9 +6,10 @@ const { render } = require('express/lib/response');
 const filePath = path.resolve(__dirname, 'animals.json');
 
 // router methods
-
 exports.getMainPage = (req, res, next) => {
    let animals = loadData();
+   // render is a function of templating engine, it allows us to point to the file that should be presented to the user and optionally, we can pass an object containing data that we need to render to the given view
+   // extension .ejs is added automatically
    res.render('index', { arr: animals });
 };
 
@@ -17,16 +18,13 @@ exports.getAdd = (req, res, next) => {
 };
 
 exports.postAdd = (req, res, next) => {
-   res.re;
-   let data = req.body;
-   let animals = [];
-   saveData(new Animal(data.name, data.url, data.fact), next);
+   // creating and saving an animal to the file
+   saveData(new Animal(req.body.name, req.body.url, req.body.fact), next);
    res.redirect('/');
 };
 
-exports.delete = (req, res, next) => {
+exports.postDelete = (req, res, next) => {
    let data = req.body;
-   console.log('DataID' + data.id);
    remove(data.id);
    res.redirect('/');
 };
@@ -41,9 +39,11 @@ exports.delete = (req, res, next) => {
 // fetch data from the file
 const loadData = () => {
    try {
+      // reading data from the file
       let data = fs.readFileSync(filePath, 'utf8');
       // if file is not empty
       if (data) {
+         // if data is not a falsey value, we parse it with inbuilt vanilla js JSON function, and return it from the function
          return JSON.parse(data);
       }
    } catch (err) {
@@ -60,7 +60,7 @@ const saveData = function (animal, next) {
    //adding animal to existing array
    animals.push(animal);
    // saving animal array to the json file
-   saveFile(animals);
+   saveToFile(animals);
 };
 
 //remove from the file
@@ -73,11 +73,11 @@ const remove = (id) => {
       }
    });
    // save file
-   saveFile(animals);
+   saveToFile(animals);
 };
 
 // helper function
-const saveFile = (array) => {
+const saveToFile = (array) => {
    try {
       fs.writeFileSync(filePath, JSON.stringify(array));
    } catch (err) {
